@@ -1,2 +1,0 @@
-# react_prc
-component

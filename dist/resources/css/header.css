@@ -1,0 +1,19 @@
+/*-------------- 
+       init
+----------------*/
+body{margin:0; padding:0;}
+
+
+/*-------------- 
+       header
+----------------*/
+.header{box-sizing: border-box; border-bottom: 1px black solid; height:50px;}
+
+/*-------------- 
+  window popup
+----------------*/
+.window_masking{ position: fixed; background: rgba(0,0,0,.5); left: 0; bottom:0; right:0; top:0; width: 100%; height:100%;}
+.popup_background{position:relative; width: 400px; height: 500px; margin:150px auto; background:white;}
+.popup_header{width: 100%; background: #496be7; height:50px; color:white;}
+.popup_header>h1{font-size: 18px; margin:0; padding-left: 20px; padding-top:12px; }
+.fileUpload{left:4%; top:45%; position:absolute; border:2px dotted whitesmoke; width:90%; height:50px; color:#92AAB0; text-align:center; font-size:24px; text-align: center; padding-top:10px;}
