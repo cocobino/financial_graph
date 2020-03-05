@@ -8,7 +8,6 @@ const dir = {
 	dist: './dist/'
 };
 
-//html: [dir.src + '*.html', dir.src + '**/*.html']
 const src = {
 	html: [dir.src + '*.html', dir.src + '**/*.html']
 };
