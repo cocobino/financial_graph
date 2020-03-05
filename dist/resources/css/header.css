@@ -8,12 +8,13 @@ body{margin:0; padding:0;}
        header
 ----------------*/
 .header{box-sizing: border-box; border-bottom: 1px black solid; height:50px;}
-
+body{background: whitesmoke;}
 
 /*-------------- 
    body_content
 ----------------*/
-.content{margin: 0 auto; width: 1080px; background: whitesmoke; box-sizing: border-box;}
+.content{margin: 0 auto; width: 1080px; box-sizing: border-box;}
+
 
 /*-------------- 
   window popup
@@ -26,7 +27,18 @@ body{margin:0; padding:0;}
 
 
 /*-------------- 
-  main_monthGraph
+ main_monthGraph
 ----------------*/
 .main_monthGraph { position: relative; left:10px; width: 1060px; background: white; height:400px; top:10px; box-shadow: 6px 10px 12px 0px rgba(04, 00, 00, 0.15); z-index: 500;}
-.draw_monthGraph{ position: absolute; background: coral; width: 100%; height: 350px; top: 25px; padding: 0 15px; box-sizing: border-box;}
+.draw_monthGraph{ position: absolute; width: 100%; height: 350px; top: 25px; padding: 0 15px; box-sizing: border-box;}
+.draw_Xbararea {position: relative; width: 5px; height: 100%; z-index: 950; float: left;}
+.draw_Xbar {position: absolute; width: 100%; bottom:0; background: yellowgreen; transition: all 3s ease-out;}
+.draw_Xbar:before {position: absolute; content: ' '; width: 10px; height:10px; border-radius: 5px; background: yellowgreen; top:-7px; left:-2.5px; }
+.draw_dateText {position: absolute; text-align: center; font-size: 4px; left: -7.5px; bottom: -15px}
+.draw_dateCost {position: absolute; border-radius: 5px; text-align: center; left:-5.5px; font-size: 4px; margin-bottom: 10px; transition: bottom 3s ease-out;}
+
+/*-------------------- 
+ monthGraph_animation
+----------------------*/
+ .draw_default>div>div.draw_Xbar{height:0px !important;}
+ .draw_default>div>div.draw_dateCost{bottom:0px !important;}
