@@ -31,7 +31,7 @@
             const recordDate ='이용일자';
             const recordCost ='이용금액';
         
-                for(let i=0; i<EXCEL_JSON.length-1; i++) {
+                for(let i=0; i<EXCEL_JSON.length-3; i++) {
                     //key: date, value : cost
                     const tmpCost = parseInt((EXCEL_JSON[i][recordCost]).replace(/,/g,''));
                     if(!dateList.includes(EXCEL_JSON[i][recordDate])){ dateList.push(EXCEL_JSON[i][recordDate]); }

@@ -29,7 +29,7 @@ body{background: whitesmoke;}
 /*-------------- 
  main_monthGraph
 ----------------*/
-.main_monthGraph { position: relative; left:10px; width: 1060px; background: white; height:400px; top:10px; box-shadow: 6px 10px 12px 0px rgba(04, 00, 00, 0.15); z-index: 500;}
+.main_monthGraph { position: relative; left:10px; width: 1060px; background: url('/resources/img/line.png'); height:400px; top:15px; box-shadow: 6px 10px 12px 0px rgba(04, 00, 00, 0.15); z-index: 500;}
 .draw_monthGraph{ position: absolute; width: 100%; height: 350px; top: 25px; padding: 0 15px; box-sizing: border-box;}
 .draw_Xbararea {position: relative; width: 5px; height: 100%; z-index: 950; float: left;}
 .draw_Xbar {position: absolute; width: 100%; bottom:0; background: yellowgreen; transition: all 3s ease-out;}
@@ -42,3 +42,26 @@ body{background: whitesmoke;}
 ----------------------*/
  .draw_default>div>div.draw_Xbar{height:0px !important;}
  .draw_default>div>div.draw_dateCost{bottom:0px !important;}
+
+
+/*-------------------- 
+    main_monthBest
+----------------------*/
+.main_monthBest {position: relative; width: 300px; height: 300px; background: url('/resources/img/line.png'); z-index: 500; left:10px; top:30px; box-shadow: 6px 10px 12px 0px rgba(04, 00, 00, 0.15); float: left;}
+.draw_monthBestGraph{position: absolute; width: 280px; left:10px; height: 280px; top:10px; z-index: 550; padding: 25px 0; box-sizing: border-box;}
+.draw_Yarea {position: relative; height: 20px; z-index: 600;}
+.draw_Ybar{position : absolute; left: 0; background: green; z-index: 700; height:100%; transition: all 3s ease-out; font-size: 10px; color: white; font-weight: bold; padding: 11px 0; overflow: hidden; text-align: center;}
+.draw_YText{position: absolute; width: 100%; left: 0; opacity: 1; transition: all 2s ease-out; transition-delay: 2s; text-align: center;}
+
+
+/*-------------------- 
+ monthGraph_animation
+----------------------*/
+.defulat_widthGraph>div>div.draw_Ybar{ width: 0px !important ;}
+.defulat_widthGraph>div>div>div.draw_YText{ opacity: 0 !important ;}
+
+
+/*-------------------- 
+ UtilityCost_Graph
+----------------------*/
+.UtilityCost_Graph {position: relative; width: 400px; height:300px; background: yellow; z-index: 500; float: left; margin-left: 15px; left: 15px; top: 30px;}
