@@ -48,7 +48,6 @@
                         graph.max = Math.max(graph.max, (tmpCost + _Cost));
                     }
                 }
-                console.log(monthData);
             },
             callbackAnimation(DOM) {
                 //init draw graph

@@ -28,8 +28,11 @@ window.onload = () => {
                         workbook.SheetNames.forEach((item) => {
                             EXCEL_JSON = XLSX.utils.sheet_to_json(workbook.Sheets[item]);
                             EXCEL_JSON.length > 0 ? removeMask.style.display ='none' : removeMask.style.display ='block'; //remove popup
+                            console.log(EXCEL_JSON)
                             monthGraph();
                             monthBestGraph();
+                            utilityCost();
+                            onlineCost();
                         });
                     };
                     excelReader.readAsBinaryString(files[0]);
@@ -162,7 +165,6 @@ monthBestGraph = () => {
                         graph.max = Math.max(graph.max, (tmpCost + _Cost));
                     }
                 }
-                console.log(monthData);
             },
             callbackAnimation(DOM) {
                 //init draw graph
@@ -173,4 +175,152 @@ monthBestGraph = () => {
         }
 
         monthGraph.init();
+    }
+
+onlineCost = () => {
+    let online_graph = [], onlineList =['지마켓', '쿠팡', '옥션','페이',], graphData={}
+    ,colorList = ['#ff0391', 'gold', '#f06', '#ffc33b', 'skyblue','orange', '#ff2942', 'yellowgreen'], totalCost=0;
+
+    const onlineCost = {
+        init() {
+            this.setData();
+            this.drawD3();
+        },
+        setData() {
+             const recordDivision ='매출구분';
+                const recordCost = '이용금액';
+                const recordName = '이용가맹점(은행)명';
+
+                for(let i=0; i<EXCEL_JSON.length-5; i++) {
+                    if(EXCEL_JSON[i][recordDivision] === '취소' || EXCEL_JSON[i][recordDivision] === '선결제')continue;
+                    const tmpDivision = EXCEL_JSON[i][recordName];
+                    for(let j=0; j<onlineList.length; j++) {
+                        if(tmpDivision.indexOf(onlineList[j]) < 0)continue;
+                        
+
+                        if((online_graph.findIndex(x => x.name ===tmpDivision) >=0)){
+                            online_graph[online_graph.findIndex(x => x.name ===tmpDivision)].cost += parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, ''));
+                            totalCost += parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, ''));
+                        }else {
+                            online_graph.push({name: tmpDivision, cost: parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, '')) });
+                            totalCost += parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, ''));
+                        }
+                    }
+                }
+                
+                online_graph.sort((a,b) => {
+                    return a.cost < b.cost ? -1 : a.cost > b.cost ? 1: 0;
+                });
+
+                graphData = this.toObj(online_graph);
+        },
+        toObj(arr) {
+            let tmpObj = {};
+            console.log(arr)
+            for(let i=0; i<arr.length; i++) {
+                const name = arr[i].name;
+                const cost = arr[i].cost;
+                tmpObj = Object.assign(tmpObj, {[name] : cost})
+            }
+            return tmpObj;
+        },
+        drawD3() {
+            const width = 280, height = 280, margin = 10;
+            const radius = (Math.min(width, height) / 2) - margin;
+
+            const svg = d3.select('#d3-pie-graph')
+                          .append('svg')
+                          .attr('width', width)
+                          .attr("height", height)
+                          .append('g')
+                          .attr('transform', `translate(${width/2}, ${height/2})`);
+            
+            const color = d3.scaleOrdinal()
+                            .domain(graphData)
+                            .range(["#98abc5", "#8a89a6", "#7b6888"/*, "#6b486b", "#a05d56"*/]);
+
+            const pie = d3.pie()
+                        .value(function(d){return d.value});
+            const data_ready = pie(d3.entries(graphData));
+
+            svg.selectAll('p')
+            .data(data_ready)
+            .enter()
+            .append('path')
+            .attr('d', d3.arc()
+                         .innerRadius(0)
+                         .outerRadius(radius)
+                 )
+            .attr('fill', function(d){ return(color(d.data.key)) })
+            .attr("stroke", "black")
+            .style("stroke-width", "2px")
+            .style("opacity", 0.7);
+
+        }
+
+    }
+
+
+    onlineCost.init();
+}
+    utilityCost = () => {
+        let utilGraph = [], utilList =['전력', '버스', '통신', '에스알', '택시', '해양']
+        ,colorList = ['#ff0391', 'gold', "#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", 'yellowgreen'], totalCost=0;
+        
+
+        const utilityCost = {
+            init() {
+                const circleDOM  = document.querySelector('#draw_circle_graph');
+                this.setData();
+                circleDOM.innerHTML = this.draw(circleDOM);
+            },
+            setData() {
+                const recordDivision ='매출구분';
+                const recordCost = '이용금액';
+                const recordName = '이용가맹점(은행)명';
+
+                for(let i=0; i<EXCEL_JSON.length-5; i++) {
+                    if(EXCEL_JSON[i][recordDivision] === '취소' || EXCEL_JSON[i][recordDivision] === '선결제')continue;
+                    const tmpDivision = EXCEL_JSON[i][recordName];
+                    for(let j=0; j<utilList.length; j++) {
+                        if(tmpDivision.indexOf(utilList[j]) < 0)continue;
+                        
+
+                        if((utilGraph.findIndex(x => x.name ===tmpDivision) >=0)){
+                            utilGraph[utilGraph.findIndex(x => x.name ===tmpDivision)].cost += parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, ''));
+                            totalCost += parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, ''));
+                        }else {
+                            utilGraph.push({name: tmpDivision, cost: parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, '')) });
+                            totalCost += parseInt(EXCEL_JSON[i][recordCost].replace(/,/g, ''));
+                        }
+                    }
+                }
+                
+                utilGraph.sort((a,b) => {
+                    return a.cost < b.cost ? -1 : a.cost > b.cost ? 1: 0;
+                });
+            },
+            draw(DOM) {
+                let t = '', style='';
+                let per =0;
+                for(let i=0; i<=utilGraph.length; i++) {
+                    if(i===0)style+=`${colorList[i]} 0% ${(utilGraph[i].cost/totalCost)*100}%, `;
+                    else if(i=== utilGraph.length){
+                        style += `${colorList[i]} ${(utilGraph[i-1].cost/totalCost)*100}% 100%`;                        
+                    }
+                    else style += `${colorList[i]} ${(utilGraph[i-1].cost/totalCost)*100}% ${(utilGraph[i].cost/totalCost)*100}%, `;
+                }
+
+                
+                t = `<div class="circle_graph" style="background: conic-gradient(${style});"></div><div class="circle_center"> </div>`;
+                setTimeout(this.callbackAnimation, 100, DOM);
+                return t;
+            },
+            callbackAnimation(DOM) {
+                DOM.classList.remove('show-piechart');
+            }
+
+        }
+
+        utilityCost.init();
     }

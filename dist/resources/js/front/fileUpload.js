@@ -28,8 +28,11 @@ window.onload = () => {
                         workbook.SheetNames.forEach((item) => {
                             EXCEL_JSON = XLSX.utils.sheet_to_json(workbook.Sheets[item]);
                             EXCEL_JSON.length > 0 ? removeMask.style.display ='none' : removeMask.style.display ='block'; //remove popup
+                            console.log(EXCEL_JSON)
                             monthGraph();
                             monthBestGraph();
+                            utilityCost();
+                            onlineCost();
                         });
                     };
                     excelReader.readAsBinaryString(files[0]);
