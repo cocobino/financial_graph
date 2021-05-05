@@ -1,0 +1,104 @@
+.content {
+    width: 1024px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.showImg {
+    position: relative;
+    width: 1024px;
+    overflow: hidden;
+}
+
+.showImg::before {
+    content: '';
+    position: absolute;
+    opacity: .8;
+    width: 100%;
+    height: 100%;
+    background-image: url(./img/wait.png);
+}
+
+.showImg::after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: gray;
+    opacity: .5;
+}
+
+
+div.searchArea {
+    margin-bottom: 20px;
+}
+div.searchArea label {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+div.searchArea label input {
+    border: 2px solid #b4b4b5;
+    width: 300px;
+    height: 30px;
+    outline: none;
+}
+
+div.searchArea label select{
+    border: 2px solid #b4b4b5;
+    width: 150px;
+    height: 30px;
+    outline: none;
+}
+
+div.searchArea label button.searchBtn {
+    background: #243b7c;
+    color: white;
+    margin-left: 5px;
+    height: 37px;
+    width: 100px;
+    cursor: pointer;
+}
+
+div.tablewrapper {
+    width: 1024px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+table.renderTable {
+    border-collapse: collapse;
+}
+
+table.renderTable thead tr {
+    background: #f0f0f0;
+    border: 1px solid black;
+    border-top: 3px solid #696a6c;
+    border-left: none;
+    border-right: none;
+}
+
+table.renderTable tbody tr {
+    border-left: none;
+    border-right: none;
+}
+
+table.renderTable thead tr td {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+table.renderTable tbody tr td:first-child {
+    border-left: none;
+}
+
+table.renderTable tbody tr td:last-child {
+    border-right: none;
+}
+
+table.renderTable tbody tr td {
+    border: 1px solid #c6c6c6;
+    padding: 10px 20px;
+    text-align: center;
+}
