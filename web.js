@@ -3,7 +3,6 @@ var app = express();
 
 // router 설정
 var indexRouter = require('./routes/index');
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
